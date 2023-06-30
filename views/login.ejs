@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LOGIN</title>
+    <head>
+      <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        .container {
+          width: 100vw;
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .form {
+          width: 50%;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          justify-content: center;
+          align-items: center;
+        }
+        .inputBox {
+          width: 80%;
+          height: 40px;
+          padding: 4px;
+        }
+        .btn_container {
+          width: 80%;
+          display: flex;
+          justify-content: space-between;
+          margin-left: 30px;
+          margin-right: 30px;
+        }
+        .button {
+          outline: none;
+          background-color: rgb(218, 227, 224);
+          width: 30%;
+          height: auto;
+          cursor: pointer;
+          padding: 10px 10px 4px 4px;
+          border: 1px solid black;
+        }
+      </style>
+    </head>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form">
+        <input
+          class="inputBox"
+          name="id"
+          type="text"
+          placeholder="enter user id"
+          id="id"
+        />
+        <input
+          class="inputBox"
+          name="password"
+          type="password"
+          placeholder="enter user password"
+          id="password"
+        />
+        <div class="btn_container">
+          <button class="button" type="submit" name="login" id="handleClick">
+            LOGIN
+          </button>
+          <div
+            class="button"
+            name="changePassword"
+            onClick="onChangePasswordHandler()"
+          >
+            Change Password
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document
+        .getElementById("handleClick")
+        .addEventListener("click", async () => {
+          console.log("working");
+          const baseUrl = window.location.origin;
+
+          const data = {
+            id: document.getElementById("id").value,
+            password: document.getElementById("password").value,
+          };
+
+          console.log(data);
+          try {
+            const res = await fetch(`${baseUrl}/login`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            });
+            const responsedata = await res.json();
+            console.log(responsedata);
+            console.log(res.status);
+            localStorage.setItem(
+              "userInfo",
+              JSON.stringify({
+                id: responsedata[0].id,
+                name: responsedata[0].name,
+              })
+            );
+            window.location.href = "/customer";
+          } catch (error) {
+            console.log("error");
+          }
+        });
+
+      const onChangePasswordHandler = () => {
+        // e.preventDefault();
+        console.log("working");
+        window.location.href = "/changePassword";
+      };
+    </script>
+  </body>
+</html>
+
+{ status: "error" | "success", data: { mess }, message" } }

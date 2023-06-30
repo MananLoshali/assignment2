@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .class {
+        width: 100%;
+      }
+
+      .container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .form {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        justify-content: center;
+        align-items: center;
+      }
+      .inputBox {
+        width: 80%;
+        height: auto;
+        padding: 4px;
+      }
+
+      .button {
+        outline: none;
+        background-color: rgb(218, 227, 224);
+        width: 30%;
+        height: auto;
+        cursor: pointer;
+        padding: 10px 10px 4px 4px;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form class="form" action="/customer" method="post">
+        <input
+          class="inputBox"
+          type="date"
+          placeholder="Enter order date"
+          name="order_date"
+        />
+        <input
+          class="inputBox"
+          type="text"
+          placeholder="Enter company"
+          name="company"
+          id="company"
+          readonly
+        />
+        <input
+          class="inputBox"
+          type="text"
+          placeholder="Enter order owner"
+          name="order_owner"
+          id="owner"
+          readonly
+        />
+        <input
+          class="inputBox"
+          type="text"
+          placeholder="Enter item/product"
+          name="item"
+        />
+        <input
+          class="inputBox"
+          type="number"
+          placeholder="Enter EA/count"
+          name="count"
+        />
+        <input
+          class="inputBox"
+          type="text"
+          placeholder="Enter weight"
+          name="weight"
+        />
+        <input
+          class="inputBox"
+          type="text"
+          placeholder="Enter Requests"
+          name="requests"
+        />
+        <input class="button" type="submit" value="SUBMIT" />
+        <div id="btn" class="button">Show Order Details</div>
+      </form>
+    </div>
+    <script>
+      document.getElementById("company").value = JSON.parse(
+        localStorage.getItem("userInfo")
+      ).id;
+      document.getElementById("owner").value = JSON.parse(
+        localStorage.getItem("userInfo")
+      ).name;
+
+      document.getElementById("btn").addEventListener("click", async () => {
+        // const baseUrl = window.location.origin;
+        // const data = {
+        //   id: JSON.parse(localStorage.getItem("userInfo")).id,
+        // };
+        // try {
+        //   const res = await fetch(`${baseUrl}/showOrderDetails`, {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-type": "application/json",
+        //     },
+        //     body: JSON.stringify(data),
+        //   });
+        //   console.log("RUN");
+        //   const responsedata = await res.json();
+        //   console.log(responsedata);
+        // } catch (error) {
+        //   alert(error);
+        // }
+        window.location.href = `/orderDetails?id=${
+          JSON.parse(localStorage.getItem("userInfo")).id
+        }`;
+      });
+    </script>
+  </body>
+</html>

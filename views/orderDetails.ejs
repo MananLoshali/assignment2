@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Details</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .btn {
+        outline: none;
+        border: 1px solid black;
+        background-color: rgb(193, 235, 221);
+        font-size: medium;
+        color: blueviolet;
+        text-align: right;
+        padding: 8px;
+        margin-top: 40px;
+        margin-right: 40px;
+      }
+      .btn-container {
+        width: 100vw;
+        display: flex;
+        justify-content: right;
+        align-items: center;
+      }
+      .container {
+        width: 100vw;
+      }
+      th,
+      td {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="btn-container">
+      <button class="btn">Export to Excel</button>
+    </div>
+    <table style="width: 100%">
+      <tr>
+        <th>Order Id</th>
+        <th>Order Date</th>
+        <th>Item</th>
+        <th>Count</th>
+        <th>Weight</th>
+        <th>Requests</th>
+      </tr>
+      <% data.forEach(function(item) { %>
+      <tr>
+        <th><%= item.order_id %></th>
+        <th><%= item.order_date %></th>
+        <th><%= item.item %></th>
+        <th><%= item.count %></th>
+        <th><%= item.weight %></th>
+        <th><%= item.requests %></th>
+      </tr>
+      <% }); %>
+    </table>
+    <script>
+      // let data = "hello worls";
+      // const fetchApi = async () => {
+      //   const baseUrl = window.location.origin;
+      //   const data = {
+      //     id: JSON.parse(localStorage.getItem("userInfo")).id,
+      //   };
+      //   try {
+      //     const res = await fetch(`${baseUrl}/showOrderDetails`, {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-type": "application/json",
+      //       },
+      //       body: JSON.stringify(data),
+      //     });
+      //     const responsedata = await res.json();
+      //     console.log(responsedata);
+      //     const table = document.getElementById("container");
+
+      //     const order = `<table>
+      //     <tr>
+      //     <th>Order Id</th>
+      //     <th>Order Date</th>
+      //     <th>Item</th>
+      //     <th>Count</th>
+      //     <th>Weight</th>
+      //   </tr>
+      //   ${responsedata.forEach((item) => {
+      //     `<tr>${item.order_id}</tr>
+      //     <tr>${item.order_date}</tr>
+      //     <tr>${item.item}</tr>
+      //     <tr>${item.count}</tr>
+      //     <tr>${item.weight}</tr>`;
+      //   })}
+      //         </table>`;
+      //     table.innerHTML = order;
+      //   } catch (error) {
+      //     alert(error);
+      //   }
+      // };
+      // window.onload = fetchApi();
+    </script>
+  </body>
+</html>
