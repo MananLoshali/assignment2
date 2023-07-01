@@ -1,13 +1,14 @@
-const express = require("express");
-const mysql = require("mysql");
-const bodyParser = require("body-parser");
-const ejs = require("ejs");
-const dotenv = require("dotenv");
+import express from "express";
+import mysql from "mysql";
+import bodyParser from "body-parser";
+import dotenv from "dotenv";
+import cors from "cors";
+import writeXlsxFile from "write-excel-file";
 dotenv.config();
 const encoder = bodyParser.urlencoded();
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+app.use(cors());
 app.set("view engine", "ejs");
 app.set("views", "views");
 
@@ -28,46 +29,43 @@ db.connect((error) => {
   }
 });
 
-app.get("/", (req, res) => {
-  res.render("login");
-});
-app.get("/customer", (req, res) => {
-  res.render("customer");
-});
-app.get("/changePassword", (req, res) => {
-  res.render("changePassword");
-});
+// app.get("/", (req, res) => {
+//   res.render("login");
+// });
+// app.get("/customer", (req, res) => {
+//   res.render("customer");
+// });
+// app.get("/changePassword", (req, res) => {
+//   res.render("changePassword");
+// });
+
 app.get("/orderDetails", (req, res) => {
   const sql = `SELECT * from Orderitem WHERE user_id = "${req.query.id}"`;
-
   db.query(sql, (err, data) => {
     if (err) {
       res.status(500).send({ errror: "Something went wrong" });
     } else {
       if (data.length > 0) {
-        console.log("data", data);
-        res.render("orderDetails", { data: data });
+        //var newData = [];
+        //var realData = [];
+        // data.forEach((item) => {
+        // newData.push({ ...item });
+        //});
+        //realData = JSON.stringify(newData);
+        //console.log(realData);
+        //console.log(newData);
+        res.send(data);
+        // res.render("orderDetails", {
+        // data: data,
+        // datass: realData,
+        // writeXlsxFile: writeXlsxFile,
+        //});
       } else {
         res.status(401).send({ error: "User not found" });
       }
     }
   });
 });
-// app.post("/showOrderDetails", (req, res) => {
-//   console.log(req.body.id);
-//   const sql = `SELECT * from Orderitem WHERE user_id = "${req.body.id}"`;
-//   db.query(sql, (err, data) => {
-//     if (err) {
-//       res.status(500).send({ errror: "Something went wrong" });
-//     } else {
-//       if (data.length > 0) {
-//         res.json(data);
-//       } else {
-//         res.status(401).send({ error: "User not found" });
-//       }
-//     }
-//   });
-// });
 
 app.post("/login", encoder, (req, res) => {
   const { id, password } = req.body;
@@ -106,7 +104,7 @@ app.post("/changePassword", encoder, (req, res) => {
             if (err) {
               res.send("Somehing went wrong");
             } else {
-              res.redirect("/customer");
+              res.status(200).send(data);
             }
           });
         }
@@ -131,9 +129,10 @@ app.post("/customer", encoder, (req, res) => {
   console.log(data);
   db.query(sql, [data], (err, data) => {
     if (err) {
-      return res.json(err);
+      return res.send(err);
     } else {
-      res.redirect("/customer");
+      res.send(data);
+      // res.redirect("/customer");
     }
   });
 });

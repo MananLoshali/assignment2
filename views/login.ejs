@@ -82,12 +82,16 @@
           </div>
         </div>
       </div>
+      <div>
+        <h2>USER ID => 45</h2>
+        <h2>USER PASSWORD => ram45</h2>
+      </div>
     </div>
+
     <script>
       document
         .getElementById("handleClick")
         .addEventListener("click", async () => {
-          console.log("working");
           const baseUrl = window.location.origin;
 
           const data = {
@@ -95,7 +99,6 @@
             password: document.getElementById("password").value,
           };
 
-          console.log(data);
           try {
             const res = await fetch(`${baseUrl}/login`, {
               method: "POST",
@@ -105,8 +108,7 @@
               body: JSON.stringify(data),
             });
             const responsedata = await res.json();
-            console.log(responsedata);
-            console.log(res.status);
+
             localStorage.setItem(
               "userInfo",
               JSON.stringify({
@@ -128,5 +130,3 @@
     </script>
   </body>
 </html>
-
-{ status: "error" | "success", data: { mess }, message" } }

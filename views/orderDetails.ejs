@@ -21,6 +21,7 @@
         padding: 8px;
         margin-top: 40px;
         margin-right: 40px;
+        cursor: pointer;
       }
       .btn-container {
         width: 100vw;
@@ -39,7 +40,7 @@
   </head>
   <body>
     <div class="btn-container">
-      <button class="btn">Export to Excel</button>
+      <button class="btn" id="button">Export to Excel</button>
     </div>
     <table style="width: 100%">
       <tr>
@@ -62,46 +63,11 @@
       <% }); %>
     </table>
     <script>
-      // let data = "hello worls";
-      // const fetchApi = async () => {
-      //   const baseUrl = window.location.origin;
-      //   const data = {
-      //     id: JSON.parse(localStorage.getItem("userInfo")).id,
-      //   };
-      //   try {
-      //     const res = await fetch(`${baseUrl}/showOrderDetails`, {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-type": "application/json",
-      //       },
-      //       body: JSON.stringify(data),
-      //     });
-      //     const responsedata = await res.json();
-      //     console.log(responsedata);
-      //     const table = document.getElementById("container");
-
-      //     const order = `<table>
-      //     <tr>
-      //     <th>Order Id</th>
-      //     <th>Order Date</th>
-      //     <th>Item</th>
-      //     <th>Count</th>
-      //     <th>Weight</th>
-      //   </tr>
-      //   ${responsedata.forEach((item) => {
-      //     `<tr>${item.order_id}</tr>
-      //     <tr>${item.order_date}</tr>
-      //     <tr>${item.item}</tr>
-      //     <tr>${item.count}</tr>
-      //     <tr>${item.weight}</tr>`;
-      //   })}
-      //         </table>`;
-      //     table.innerHTML = order;
-      //   } catch (error) {
-      //     alert(error);
-      //   }
-      // };
-      // window.onload = fetchApi();
+      document.getElementById("button").addEventListener("click", async () => {
+        console.log("WORKING");
+        const datass = "<%= datass %>";
+        console.log(datass);
+      });
     </script>
   </body>
 </html>
