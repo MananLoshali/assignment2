@@ -73,7 +73,7 @@ app.post("/login", encoder, (req, res) => {
   const sql = `SELECT * from User WHERE id = "${id}"`;
   db.query(sql, (err, data) => {
     if (err) {
-      res.status(500).send({ errror: "Something went wrong" });
+      res.status(500).send({ errror: "Something went wrong" ,"msg":err});
     } else {
       if (data.length > 0) {
         if (data[0].password === password) {
